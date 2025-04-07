@@ -1,0 +1,18 @@
+service: scheduler-lambda
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: ap-northeast-2
+  profile: apmabi
+  logs:
+    lambda:
+      disableLogGroup: true # CloudWatch 로그 그룹 생성 안함
+  memorySize: 128
+  timeout: 10
+
+functions:
+  scheduler:
+    handler: src/handler.execute
+    events:
+      - schedule: cron(0/5 * * * ? *) # 매시간 0분부터 5분 간격으로 실행
