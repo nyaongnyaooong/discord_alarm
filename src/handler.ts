@@ -3,9 +3,7 @@ import axios from 'axios';
 
 export const execute: Handler = async (event, context) => {
   try {
-    const targetUrl =
-      process.env.TARGET_URL ||
-      'https://discord.com/api/webhooks/1332235823223013416/AONcS6gBc29uixtV-UHJBO8FJWogAMHGxaQkhgtUhTIsr2CWdMr8WIG7iamqUqJqcNab';
+    const targetUrl = process.env.DISCORD_WEBHOOK_URL;
 
     console.log(`요청 시작: ${targetUrl}`);
 

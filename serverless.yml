@@ -1,18 +1,24 @@
-service: scheduler-lambda
+service: discord-scheduler
+
+org: apmabi
+app: apmabi-lambda
 
 provider:
   name: aws
   runtime: nodejs22.x
   region: ap-northeast-2
   profile: apmabi
-  logs:
-    lambda:
-      disableLogGroup: true # CloudWatch 로그 그룹 생성 안함
+  logRetentionInDays: 1 # 로그 보존 기간만 설정 가능
   memorySize: 128
   timeout: 10
+  stage: prod # 기본 스테이지를 prod로 설정
+  environment:
+    DISCORD_WEBHOOK_URL: ${param:DISCORD_WEBHOOK_URL}
+    # DISCORD_WEBHOOK_URL: ${env:DISCORD_WEBHOOK_URL}
 
 functions:
   scheduler:
     handler: src/handler.execute
+    # disableLogs: true # 함수 레벨에서 로그 비활성화
     events:
       - schedule: cron(0/5 * * * ? *) # 매시간 0분부터 5분 간격으로 실행
