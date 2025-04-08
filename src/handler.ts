@@ -5,13 +5,11 @@ export const execute: Handler = async (event, context) => {
   try {
     const targetUrl = process.env.DISCORD_WEBHOOK_URL;
 
-    console.log(`요청 시작: ${targetUrl}`);
-
     const response = await axios({
       method: 'POST',
       url: targetUrl,
       data: {
-        content: '웹훅 테스트',
+        content: '결계 5분전 알림',
         embeds: null,
         attachments: [],
       },
@@ -20,8 +18,6 @@ export const execute: Handler = async (event, context) => {
       },
       timeout: 5000,
     });
-
-    console.log('요청 성공:', response.status);
 
     // 단순히 실행 결과만 반환
     return {
